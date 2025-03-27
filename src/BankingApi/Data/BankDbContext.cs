@@ -4,8 +4,8 @@ using System.Text.Json;
 
 namespace BankingApi.Data;  
 
-public class BankDbContent : DbContext{
-    public BankDbContent(DbContextOptions<BankDbContent> options) : base(options){}
+public class BankDbContext : DbContext{
+    public BankDbContext(DbContextOptions<BankDbContext> options) : base(options){}
 
     public DbSet<AccountHolder> AccountHolders {get; set; } = null!;
     public DbSet<AuditLog> AuditLogs {get; set; } = null!;
@@ -15,15 +15,18 @@ public class BankDbContent : DbContext{
     protected override void OnModelCreating(ModelBuilder modelBuilder){
        base.OnModelCreating(modelBuilder);
 
+       //Configure relationships
+
        modelBuilder.Entity<BankAccount>()
        .HasOne (b => b.AccountHolder)
        .WithMany(a => a.BankAccounts)
        .HasForeignKey(w => w.AccountHolderId);
 
-       modelBuilder.Entity<AccountHolder>()
-       .HasOne (w => w.BankAccounts)
+       modelBuilder.Entity<Withdrawal>()
+       .HasOne (w => w.BankAccount)
        .WithMany (b => b.Withdrawals)
-       .HasForeignKey (w => w.BankAccountId);   
+       .HasForeignKey (w => w.BankAccountId);
+       //Seed data will be added in migration   
     }    
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default){
@@ -57,15 +60,15 @@ public class BankDbContent : DbContext{
 
         
                 if (entry.State == EntityState.Added){
-                    auditEntry.NewValues[propertyName] = property.CurrentValue;
+                    auditEntry.NewValues[propertyName] = property.CurrentValue ?? string.Empty;
                 }
                 else if (entry.State == EntityState.Deleted){
-                    auditEntry.OldValues[propertyName] = property.OriginalValue;
+                    auditEntry.OldValues[propertyName] = property.OriginalValue ?? string.Empty;
 
                 }
                 else if (entry.State == EntityState.Modified && property.IsModified){
-                    auditEntry.OldValues[propertyName] = property.OriginalValue;
-                    auditEntry.NewValues[propertyName] = property.CurrentValue;
+                    auditEntry.OldValues[propertyName] = property.OriginalValue ?? string.Empty;
+                    auditEntry.NewValues[propertyName] = property.CurrentValue ?? string.Empty;
                 }    
 
             }
