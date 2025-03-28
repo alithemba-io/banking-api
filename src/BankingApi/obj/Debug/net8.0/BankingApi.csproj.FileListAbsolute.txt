@@ -1,0 +1,8 @@
+C:\Users\Alithemba\Documents\Development\banking-api\src\BankingApi\obj\Debug\net8.0\BankingApi.csproj.AssemblyReference.cache
+C:\Users\Alithemba\Documents\Development\banking-api\src\BankingApi\obj\Debug\net8.0\BankingApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Alithemba\Documents\Development\banking-api\src\BankingApi\obj\Debug\net8.0\BankingApi.AssemblyInfoInputs.cache
+C:\Users\Alithemba\Documents\Development\banking-api\src\BankingApi\obj\Debug\net8.0\BankingApi.AssemblyInfo.cs
+C:\Users\Alithemba\Documents\Development\banking-api\src\BankingApi\obj\Debug\net8.0\BankingApi.csproj.CoreCompileInputs.cache
+C:\Users\Alithemba\Documents\Development\banking-api\src\BankingApi\obj\Debug\net8.0\BankingApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Alithemba\Documents\Development\banking-api\src\BankingApi\obj\Debug\net8.0\BankingApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Alithemba\Documents\Development\banking-api\src\BankingApi\obj\Debug\net8.0\BankingApi.sourcelink.json

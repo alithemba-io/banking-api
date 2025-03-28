@@ -1,0 +1,7 @@
+C:\Users\Alithemba\Documents\Development\banking-api\tests\BankingApi.Tests\bin\Debug\net8.0\CoverletSourceRootsMapping_BankingApi.Tests
+C:\Users\Alithemba\Documents\Development\banking-api\tests\BankingApi.Tests\obj\Debug\net8.0\BankingApi.Tests.csproj.AssemblyReference.cache
+C:\Users\Alithemba\Documents\Development\banking-api\tests\BankingApi.Tests\obj\Debug\net8.0\BankingApi.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Alithemba\Documents\Development\banking-api\tests\BankingApi.Tests\obj\Debug\net8.0\BankingApi.Tests.AssemblyInfoInputs.cache
+C:\Users\Alithemba\Documents\Development\banking-api\tests\BankingApi.Tests\obj\Debug\net8.0\BankingApi.Tests.AssemblyInfo.cs
+C:\Users\Alithemba\Documents\Development\banking-api\tests\BankingApi.Tests\obj\Debug\net8.0\BankingApi.Tests.csproj.CoreCompileInputs.cache
+C:\Users\Alithemba\Documents\Development\banking-api\tests\BankingApi.Tests\obj\Debug\net8.0\BankingApi.Tests.sourcelink.json
