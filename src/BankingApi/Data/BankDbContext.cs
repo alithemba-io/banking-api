@@ -13,21 +13,28 @@ public class BankDbContext : DbContext{
     public DbSet<BankAccount> BankAccounts {get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder){
-       base.OnModelCreating(modelBuilder);
-
-       //Configure relationships
-
-       modelBuilder.Entity<BankAccount>()
-       .HasOne (b => b.AccountHolder)
-       .WithMany(a => a.BankAccounts)
-       .HasForeignKey(w => w.AccountHolderId);
-
-       modelBuilder.Entity<Withdrawal>()
-       .HasOne (w => w.BankAccount)
-       .WithMany (b => b.Withdrawals)
-       .HasForeignKey (w => w.BankAccountId);
-       //Seed data will be added in migration   
-    }    
+    base.OnModelCreating(modelBuilder);
+    
+    // Configure relationships
+    modelBuilder.Entity<BankAccount>()
+        .HasOne(b => b.AccountHolder)
+        .WithMany(a => a.BankAccounts)
+        .HasForeignKey(b => b.AccountHolderId);
+        
+    modelBuilder.Entity<Withdrawal>()
+        .HasOne(w => w.BankAccount)
+        .WithMany(b => b.Withdrawals)
+        .HasForeignKey(w => w.BankAccountId);
+    
+    // Configure decimal precision
+    modelBuilder.Entity<BankAccount>()
+        .Property(b => b.AvailableBalance)
+        .HasPrecision(18, 2);
+        
+    modelBuilder.Entity<Withdrawal>()
+        .Property(w => w.Amount)
+        .HasPrecision(18, 2);
+    }  
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default){
         var auditEntries = OnBeforeSaveChanges(); // Track changes before they are committed

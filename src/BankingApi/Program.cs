@@ -1,4 +1,4 @@
-/*using System.Text;
+using System.Text;
 using BankingApi.Data;
 using BankingApi.Data.Repositories;
 using BankingApi.Middleware;
@@ -95,7 +95,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Apply migrations at startup in development environment
+// Apply database creation on startup
 if (app.Environment.IsDevelopment())
 {
     using (var scope = app.Services.CreateScope())
@@ -104,14 +104,14 @@ if (app.Environment.IsDevelopment())
         try
         {
             var context = services.GetRequiredService<BankDbContext>();
-            context.Database.Migrate();
+            context.Database.EnsureCreated();
         }
         catch (Exception ex)
         {
             var logger = services.GetRequiredService<ILogger<Program>>();
-            logger.LogError(ex, "An error occurred while migrating the database.");
+            logger.LogError(ex, "An error occurred while creating the database.");
         }
     }
 }
 
-app.Run();*/
+app.Run();

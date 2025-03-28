@@ -3,13 +3,11 @@ using BankingApi.Data.Repositories;
 using BankingApi.DTOs;
 using BankingApi.Models;
 using BankingApi.Exceptions;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.AspNetCore.Mvc;
 
 namespace BankingApi.Services;
 
-public class BankService{
+public class BankService : IBankService
+{
     private readonly IBankAccountRepository _bankAccountRepository;
     private readonly IWithdrawalRepository _withdrawalRepository;
     private readonly IMapper _mapper;   
@@ -28,6 +26,15 @@ public class BankService{
         var accounts = await _bankAccountRepository.GetAccountsByHolderIdAsync(accountHolderId);
         return _mapper.Map<IEnumerable<BankAccountDto>>(accounts);
     }
+    
+    public async Task<BankAccountDto> GetAccountByNumberAsync(string accountNumber)
+    {
+        var account = await _bankAccountRepository.GetByAccountNumberAsync(accountNumber);
+        if (account == null)
+            throw new NotFoundException($"Account with number {accountNumber} not found");
+            
+        return _mapper.Map<BankAccountDto>(account);
+    }
 
     public async Task<WithdrawalResponseDto> CreateWithdrawalAsync(string accountNumber, WithdrawalRequestDto withdrawalRequest){
         var account = await _bankAccountRepository.GetByAccountNumberAsync(accountNumber);
@@ -43,7 +50,6 @@ public class BankService{
             TransactionDate = DateTime.UtcNow,
             TransactionReference = GenerateTransactionReference(),
             BankAccountId = account.Id,
-
         };
 
         //Update account balance
@@ -59,8 +65,6 @@ public class BankService{
             TransactionDate = withdrawal.TransactionDate,
             NewBalance = account.AvailableBalance
         };
-         
-       
     }
 
     private void ValidateWithdrawal(BankAccount account, decimal amount){
@@ -79,5 +83,10 @@ public class BankService{
 
     private string GenerateTransactionReference(){
         return $"TRX-{Guid.NewGuid().ToString().Substring(0, 8).ToUpper()}";
-    }    
+    }
+
+    public Task<BankAccountDto> GetAccountByAccountNumberAsync(string accountNumber)
+    {
+        throw new NotImplementedException();
+    }
 }

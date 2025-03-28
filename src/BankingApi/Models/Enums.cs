@@ -1,7 +1,8 @@
 namespace BankingApi.Models;
 
 public enum AccountType{
-    Check, Savings, FixedDeposit
+    Check, Savings, FixedDeposit,
+    Cheque
 }
 
 public enum AccountStatus{
